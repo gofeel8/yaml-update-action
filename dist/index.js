@@ -835,7 +835,7 @@ const validateContent = (content, format) => {
 };
 const YAMLParser = {
     convert(filePath) {
-        return validateContent(js_yaml_1.default.load(readFile(filePath)), types_1.Format.YAML);
+        return validateContent(js_yaml_1.default.loadAll(readFile(filePath))[0], types_1.Format.YAML);
     },
     dump(content, options) {
         return js_yaml_1.default.dump(content, { lineWidth: -1, noCompatMode: options === null || options === void 0 ? void 0 : options.noCompatMode });
