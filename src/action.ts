@@ -238,8 +238,13 @@ export function processFile(file: string, values: ValueUpdates, options: Options
   actions.debug(`Parsed JSON: ${JSON.stringify(contentNode)}`)
 
   for (const [propertyPath, value] of Object.entries(values)) {
-    contentNode = replace(value, propertyPath, contentNode, options.method)
-    contentString = parser.dump(contentNode, {noCompatMode: options.noCompatMode})
+    if (contentNode instanceof Array) {
+      contentNode[0] = replace(value, propertyPath, contentNode[0], options.method)
+      contentString = parser.dump(contentNode, {noCompatMode: options.noCompatMode})
+    } else {
+      contentNode = replace(value, propertyPath, contentNode, options.method)
+      contentString = parser.dump(contentNode, {noCompatMode: options.noCompatMode})
+    }
   }
 
   actions.debug(`Generated updated ${format.toUpperCase()}
