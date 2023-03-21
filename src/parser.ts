@@ -32,11 +32,11 @@ const validateContent = <T>(content: T | undefined, format: Format): T => {
 
 const YAMLParser = {
   convert<T extends ContentNode>(filePath: string): T {
-    const contents = YAML.loadAll(readFile(filePath)).map(content => {
-      return content
-    })
+    // const contents = YAML.loadAll(readFile(filePath)).map(content => {
+    //   return content
+    // })
     // @ts-ignore
-    return validateContent<T>(contents as T, Format.YAML)
+    return validateContent<T>(YAML.loadAll(readFile(filePath)) as T, Format.YAML)
   },
   dump<T extends ContentNode>(content: T, options?: {noCompatMode: boolean}): string {
     return YAML.dump(content, {lineWidth: -1, noCompatMode: options?.noCompatMode})

@@ -180,13 +180,31 @@ function processFile(file, values, options, actions) {
     const format = determineFinalFormat(filePath, options.format, actions);
     const parser = parser_1.formatParser[format];
     let contentNode = parser.convert(filePath);
-    let contentString = parser.dump(contentNode, { noCompatMode: options.noCompatMode });
+    let contentString = '';
+    if (contentNode instanceof Array) {
+        for (let index = 0; index < contentNode.length; index += 1) {
+            if (index > 0) {
+                contentString += '---\n';
+            }
+            contentString += parser.dump(contentNode[index], { noCompatMode: options.noCompatMode });
+        }
+    }
+    else {
+        contentString = parser.dump(contentNode, { noCompatMode: options.noCompatMode });
+    }
     const initContent = contentString;
     actions.debug(`Parsed JSON: ${JSON.stringify(contentNode)}`);
     for (const [propertyPath, value] of Object.entries(values)) {
         if (contentNode instanceof Array) {
             contentNode[0] = replace(value, propertyPath, contentNode[0], options.method);
-            contentString = parser.dump(contentNode, { noCompatMode: options.noCompatMode });
+            // contentString = parser.dump(contentNode, {noCompatMode: options.noCompatMode})
+            contentString = '';
+            for (let index = 0; index < contentNode.length; index += 1) {
+                if (index > 0) {
+                    contentString += '---\n';
+                }
+                contentString += parser.dump(contentNode[index], { noCompatMode: options.noCompatMode });
+            }
         }
         else {
             contentNode = replace(value, propertyPath, contentNode, options.method);
@@ -842,11 +860,11 @@ const validateContent = (content, format) => {
 };
 const YAMLParser = {
     convert(filePath) {
-        const contents = js_yaml_1.default.loadAll(readFile(filePath)).map(content => {
-            return content;
-        });
+        // const contents = YAML.loadAll(readFile(filePath)).map(content => {
+        //   return content
+        // })
         // @ts-ignore
-        return validateContent(contents, types_1.Format.YAML);
+        return validateContent(js_yaml_1.default.loadAll(readFile(filePath)), types_1.Format.YAML);
     },
     dump(content, options) {
         return js_yaml_1.default.dump(content, { lineWidth: -1, noCompatMode: options === null || options === void 0 ? void 0 : options.noCompatMode });

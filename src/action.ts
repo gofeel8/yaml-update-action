@@ -231,7 +231,17 @@ export function processFile(file: string, values: ValueUpdates, options: Options
   const parser = formatParser[format]
 
   let contentNode = parser.convert(filePath)
-  let contentString = parser.dump(contentNode, {noCompatMode: options.noCompatMode})
+  let contentString = ''
+  if (contentNode instanceof Array) {
+    for (let index = 0; index < contentNode.length; index += 1) {
+      if (index > 0) {
+        contentString += '---\n'
+      }
+      contentString += parser.dump(contentNode[index], {noCompatMode: options.noCompatMode})
+    }
+  } else {
+    contentString = parser.dump(contentNode, {noCompatMode: options.noCompatMode})
+  }
 
   const initContent = contentString
 
@@ -240,7 +250,14 @@ export function processFile(file: string, values: ValueUpdates, options: Options
   for (const [propertyPath, value] of Object.entries(values)) {
     if (contentNode instanceof Array) {
       contentNode[0] = replace(value, propertyPath, contentNode[0], options.method)
-      contentString = parser.dump(contentNode, {noCompatMode: options.noCompatMode})
+      // contentString = parser.dump(contentNode, {noCompatMode: options.noCompatMode})
+      contentString = ''
+      for (let index = 0; index < contentNode.length; index += 1) {
+        if (index > 0) {
+          contentString += '---\n'
+        }
+        contentString += parser.dump(contentNode[index], {noCompatMode: options.noCompatMode})
+      }
     } else {
       contentNode = replace(value, propertyPath, contentNode, options.method)
       contentString = parser.dump(contentNode, {noCompatMode: options.noCompatMode})
