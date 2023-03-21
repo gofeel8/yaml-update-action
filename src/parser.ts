@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import YAML from 'js-yaml'
 import fs from 'fs'
 import {Format, ContentNode, FormatParser} from './types'
@@ -31,7 +32,11 @@ const validateContent = <T>(content: T | undefined, format: Format): T => {
 
 const YAMLParser = {
   convert<T extends ContentNode>(filePath: string): T {
-    return validateContent<T>(YAML.loadAll(readFile(filePath))[0] as T, Format.YAML)
+    const contents = YAML.loadAll(readFile(filePath)).map(content => {
+      return content
+    })
+    // @ts-ignore
+    return validateContent<T>(contents as T, Format.YAML)
   },
   dump<T extends ContentNode>(content: T, options?: {noCompatMode: boolean}): string {
     return YAML.dump(content, {lineWidth: -1, noCompatMode: options?.noCompatMode})

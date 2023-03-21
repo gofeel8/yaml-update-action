@@ -808,6 +808,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.formatParser = exports.formatGuesser = void 0;
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 const js_yaml_1 = __importDefault(__nccwpck_require__(1917));
 const fs_1 = __importDefault(__nccwpck_require__(7147));
 const types_1 = __nccwpck_require__(8164);
@@ -835,7 +836,11 @@ const validateContent = (content, format) => {
 };
 const YAMLParser = {
     convert(filePath) {
-        return validateContent(js_yaml_1.default.loadAll(readFile(filePath))[0], types_1.Format.YAML);
+        const contents = js_yaml_1.default.loadAll(readFile(filePath)).map(content => {
+            return content;
+        });
+        // @ts-ignore
+        return validateContent(contents, types_1.Format.YAML);
     },
     dump(content, options) {
         return js_yaml_1.default.dump(content, { lineWidth: -1, noCompatMode: options === null || options === void 0 ? void 0 : options.noCompatMode });
