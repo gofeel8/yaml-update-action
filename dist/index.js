@@ -672,6 +672,7 @@ class GitHubOptions {
         let changes = {};
         if (this.valueFile && this.propertyPath) {
             let value = this.value;
+            core.debug(`valueFile::${this.valueFile}`);
             try {
                 value = (0, helper_1.convertValue)(value);
             }
