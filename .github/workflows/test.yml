@@ -17,7 +17,7 @@ jobs:
           branch: test
           valueFile: 'yaml/test.yaml'
           propertyPath: 'spec.rules[0].host'
-          value: gps6
+          value: gps7
           commitChange: false
       - name: Commit git
         uses: stefanzweifel/git-auto-commit-action@v4

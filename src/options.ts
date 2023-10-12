@@ -152,6 +152,8 @@ export class GitHubOptions implements Options {
     if (this.valueFile && this.propertyPath) {
       let value: string | number | boolean = this.value
 
+      core.debug(`valueFile::${this.valueFile}`)
+
       try {
         value = convertValue(value)
       } catch {
