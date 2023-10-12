@@ -18,7 +18,6 @@ jobs:
           propertyPath: 'spec.rules.host'
           value: 'gps'
           commitChange: false
-          updateFile: true
 
       - name: Commit git-ops
         uses: stefanzweifel/git-auto-commit-action@v4
