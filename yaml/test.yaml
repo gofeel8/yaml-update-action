@@ -1,0 +1,16 @@
+spec:
+  rules:
+    - host: 1
+      http: 2
+        paths:
+          - path: 3
+            pathType: 4
+            backend:
+              service:
+                name: 5
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - 6
+      secretName: 7
