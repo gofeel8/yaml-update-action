@@ -13,7 +13,7 @@ jobs:
         with:
           ref: test
 
-      - name: Update  tag
+      - name: Update yaml
         uses: gofeel8/yaml-update-action@main
         with:
           branch: 'test'
