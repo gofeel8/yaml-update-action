@@ -14,7 +14,7 @@ jobs:
       - name: Update  tag
         uses: gofeel8/yaml-update-action@main
         with:
-          valueFile: 'yaml-update-action/yaml/test.yaml'
+          valueFile: 'yaml/test.yaml'
           propertyPath: 'spec.rules.host'
           value: 'gps'
           commitChange: false
