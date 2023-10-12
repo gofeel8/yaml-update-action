@@ -1,0 +1,27 @@
+name: gps-test
+on:
+  push:
+    branches: [test]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Update docker tag
+        uses: gofeel8/yaml-update-action@main
+        with:
+          valueFile: 'yaml-update-action/taml/test.yaml'
+          propertyPath: 'spec.rules.host'
+          value: 'gps'
+          commitChange: false
+          updateFile: true
+
+      - name: Commit git-ops
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          repository: yaml-update-action
+          commit_message: 'change'
