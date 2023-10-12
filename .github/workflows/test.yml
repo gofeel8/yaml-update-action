@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Update yaml
-        uses: gofeel8/yaml-update-action@main
+        uses: gofeel8/yaml-update-action@test
         with:
           branch: test
           valueFile: 'yaml/test.yaml'
