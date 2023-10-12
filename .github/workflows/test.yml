@@ -16,6 +16,7 @@ jobs:
       - name: Update  tag
         uses: gofeel8/yaml-update-action@main
         with:
+          branch: 'test'
           valueFile: 'yaml/test.yaml'
           propertyPath: 'spec.rules.host'
           value: 'gps'
@@ -25,3 +26,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 'change'
+          branch: 'test'
