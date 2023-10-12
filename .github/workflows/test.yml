@@ -16,7 +16,9 @@ jobs:
       - name: Update yaml
         uses: gofeel8/yaml-update-action@main
         with:
-          branch: 'test'
+          branch: test
+          masterBranchName: test
+          targetBranch: test
           valueFile: 'yaml/test.yaml'
           propertyPath: 'spec.rules.host'
           value: 'gps'
@@ -26,5 +28,5 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 'change'
-          branch: 'test'
+          branch: test
           create_branch: true
