@@ -19,8 +19,8 @@ jobs:
           propertyPath: 'spec.rules[0].host'
           value: gps6
           commitChange: false
-      # - name: Commit git-ops
-      #   uses: stefanzweifel/git-auto-commit-action@v4
-      #   with:
-      #     commit_message: 'change'
-      #     branch: test
+      - name: Commit git
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 'change yaml'
+          # branch: test
