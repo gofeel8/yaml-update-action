@@ -17,7 +17,7 @@ jobs:
           branch: test
           valueFile: 'yaml/test.yaml'
           propertyPath: 'spec.rules[0].host'
-          value: gps3
+          value: gps4
           message: update yaml
           commitUserName: gps
       # - name: Commit git-ops
