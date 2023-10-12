@@ -11,10 +11,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Update docker tag
+      - name: Update  tag
         uses: gofeel8/yaml-update-action@main
         with:
-          valueFile: 'yaml-update-action/taml/test.yaml'
+          valueFile: 'yaml-update-action/yaml/test.yaml'
           propertyPath: 'spec.rules.host'
           value: 'gps'
           commitChange: false
