@@ -11,12 +11,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          ref: test
+          ref: test2
 
       - name: Update yaml
         uses: gofeel8/yaml-update-action@main
         with:
-          branch: 'test'
+          branch: 'test2'
           valueFile: 'yaml/test.yaml'
           propertyPath: 'spec.rules.host'
           value: 'gps'
@@ -26,4 +26,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 'change'
-          branch: 'test'
+          branch: 'test2'
