@@ -18,11 +18,8 @@ jobs:
           valueFile: 'yaml/test.yaml'
           propertyPath: 'spec.rules[0].host'
           value: gps
-          commitChange: false
-          updateFile: true
-
-      - name: Commit git-ops
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: 'change'
-          branch: test
+      # - name: Commit git-ops
+      #   uses: stefanzweifel/git-auto-commit-action@v4
+      #   with:
+      #     commit_message: 'change'
+      #     branch: test
