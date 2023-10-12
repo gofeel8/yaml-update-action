@@ -19,6 +19,7 @@ jobs:
           propertyPath: 'spec.rules[0].host'
           value: gps3
           message: update yaml
+          commitUserName: gps
       # - name: Commit git-ops
       #   uses: stefanzweifel/git-auto-commit-action@v4
       #   with:
