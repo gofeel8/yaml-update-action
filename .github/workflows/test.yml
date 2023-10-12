@@ -15,11 +15,10 @@ jobs:
         uses: gofeel8/yaml-update-action@main
         with:
           branch: test
-          masterBranchName: test
           targetBranch: test
           valueFile: 'yaml/test.yaml'
           propertyPath: 'spec.rules.host'
-          value: 'gps'
+          value: gps
           commitChange: true
 
       - name: Commit git-ops
