@@ -7,9 +7,9 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        valueFiles: ['yaml/test.yaml', 'yaml/test.yaml2']
+    # strategy:
+    #   matrix:
+    #     valueFiles: ['yaml/test.yaml', 'yaml/test.yaml2']
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -18,7 +18,9 @@ jobs:
         uses: gofeel8/yaml-update-action@test
         with:
           branch: test
-          valueFile: ${{matrix.valueFiles}}
+          valueFile: |
+            'yaml/test.yaml'
+            'yaml/test.yaml2'
           propertyPath: 'spec.rules[0].host'
           value: gps8
           commitChange: false
