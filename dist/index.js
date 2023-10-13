@@ -669,27 +669,23 @@ class GitHubOptions {
         };
     }
     get changes() {
-        const changes = {};
+        let changes = {};
         if (this.valueFile && this.propertyPath) {
             let value = this.value;
-            const valueFiles = this.valueFile.split('\n');
-            core.debug(`valueFiles::${valueFiles.toString()}`);
             try {
                 value = (0, helper_1.convertValue)(value);
             }
             catch (_a) {
                 core.warning(`exception while trying to convert value '${this.value}'`);
             }
-            for (const valueFile of valueFiles) {
-                changes[valueFile] = {
-                    [this.propertyPath]: value
-                };
-            }
+            changes[this.valueFile] = {
+                [this.propertyPath]: value
+            };
         }
-        // changes = parseChanges(changes, this.valueFile, core.getInput('changes'))
-        // if (Object.keys(changes).length === 0) {
-        //   core.setFailed('No changes to update detected')
-        // }
+        changes = (0, helper_1.parseChanges)(changes, this.valueFile, core.getInput('changes'));
+        if (Object.keys(changes).length === 0) {
+            core.setFailed('No changes to update detected');
+        }
         return changes;
     }
     get method() {
