@@ -7,21 +7,22 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    # strategy:
-    #   matrix:
-    #     valueFiles: ['yaml/test.yaml', 'yaml/test.yaml2']
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Update yaml
-        uses: gofeel8/yaml-update-action@test
+        uses: gofeel8/yaml-update-action@main
         with:
           branch: test
-          changes: '{"yaml/test.yaml": {"spec.rules[0].host": "gps101"},"yaml/test2.yaml": {"spec.rules[0].host": "gps102"}}'
+          valueFile: |
+            yaml/test.yaml
+            yaml/test2.yaml
+          propertyPath: 'spec.rules[0].host'
+          value: gps83
           commitChange: false
+
       - name: Commit git
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 'change yaml'
-          # branch: test
