@@ -576,7 +576,7 @@ const helper_1 = __nccwpck_require__(3947);
 const types_1 = __nccwpck_require__(8164);
 class GitHubOptions {
     get valueFile() {
-        return core.getInput('valueFile');
+        return core.getMultilineInput('valueFile');
     }
     get propertyPath() {
         return core.getInput('propertyPath');
@@ -669,7 +669,7 @@ class GitHubOptions {
         };
     }
     get changes() {
-        let changes = {};
+        const changes = {};
         if (this.valueFile && this.propertyPath) {
             let value = this.value;
             try {
@@ -678,13 +678,11 @@ class GitHubOptions {
             catch (_a) {
                 core.warning(`exception while trying to convert value '${this.value}'`);
             }
-            changes[this.valueFile] = {
-                [this.propertyPath]: value
-            };
-        }
-        changes = (0, helper_1.parseChanges)(changes, this.valueFile, core.getInput('changes'));
-        if (Object.keys(changes).length === 0) {
-            core.setFailed('No changes to update detected');
+            for (const file of this.valueFile) {
+                changes[file] = {
+                    [this.propertyPath]: value
+                };
+            }
         }
         return changes;
     }
