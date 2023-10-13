@@ -4,7 +4,7 @@ import {convertValue, parseChanges} from './helper'
 import {Committer, Changes, Method, Format} from './types'
 
 export interface Options {
-  valueFile: string
+  valueFile: string[]
   propertyPath: string
   value: string
   token: string
@@ -32,8 +32,12 @@ export interface Options {
 }
 
 export class GitHubOptions implements Options {
-  get valueFile(): string {
-    return core.getInput('valueFile')
+  get valueFile(): string[] {
+    return core
+      .getInput('valueFile')
+      .split(',')
+      .map(value => value.trim())
+      .filter(value => !!value)
   }
 
   get propertyPath(): string {
@@ -148,27 +152,28 @@ export class GitHubOptions implements Options {
   }
 
   get changes(): Changes {
-    let changes: Changes = {}
+    const changes: Changes = {}
     if (this.valueFile && this.propertyPath) {
-      let value: string | number | boolean = this.value
+      // let value: string | number | boolean = this.value
 
       core.debug(`valueFile::${this.valueFile}`)
+      core.debug(`valueFile::${this.valueFile.toString()}`)
 
-      try {
-        value = convertValue(value)
-      } catch {
-        core.warning(`exception while trying to convert value '${this.value}'`)
-      }
+      // try {
+      //   value = convertValue(value)
+      // } catch {
+      //   core.warning(`exception while trying to convert value '${this.value}'`)
+      // }
 
-      changes[this.valueFile] = {
-        [this.propertyPath]: value
-      }
+      // changes[this.valueFile] = {
+      //   [this.propertyPath]: value
+      // }
     }
 
-    changes = parseChanges(changes, this.valueFile, core.getInput('changes'))
-    if (Object.keys(changes).length === 0) {
-      core.setFailed('No changes to update detected')
-    }
+    // changes = parseChanges(changes, this.valueFile, core.getInput('changes'))
+    // if (Object.keys(changes).length === 0) {
+    //   core.setFailed('No changes to update detected')
+    // }
 
     return changes
   }

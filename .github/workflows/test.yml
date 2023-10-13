@@ -15,7 +15,7 @@ jobs:
         uses: gofeel8/yaml-update-action@test
         with:
           branch: test
-          valueFile: 'yaml/test.yaml'
+          valueFile: ['yaml/test.yaml', 'yaml/test.yaml2']
           propertyPath: 'spec.rules[0].host'
           value: gps8
           commitChange: false
