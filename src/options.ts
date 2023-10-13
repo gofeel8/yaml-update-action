@@ -4,7 +4,7 @@ import {convertValue, parseChanges} from './helper'
 import {Committer, Changes, Method, Format} from './types'
 
 export interface Options {
-  valueFile: string
+  valueFile: string | string[]
   propertyPath: string
   value: string
   token: string
@@ -32,8 +32,8 @@ export interface Options {
 }
 
 export class GitHubOptions implements Options {
-  get valueFile(): string {
-    return core.getInput('valueFile')
+  get valueFile(): string[] {
+    return core.getMultilineInput('valueFile')
   }
 
   get propertyPath(): string {
@@ -148,7 +148,7 @@ export class GitHubOptions implements Options {
   }
 
   get changes(): Changes {
-    let changes: Changes = {}
+    const changes: Changes = {}
     if (this.valueFile && this.propertyPath) {
       let value: string | number | boolean = this.value
 
@@ -158,14 +158,11 @@ export class GitHubOptions implements Options {
         core.warning(`exception while trying to convert value '${this.value}'`)
       }
 
-      changes[this.valueFile] = {
-        [this.propertyPath]: value
+      for (const file of this.valueFile) {
+        changes[file] = {
+          [this.propertyPath]: value
+        }
       }
-    }
-
-    changes = parseChanges(changes, this.valueFile, core.getInput('changes'))
-    if (Object.keys(changes).length === 0) {
-      core.setFailed('No changes to update detected')
     }
 
     return changes
