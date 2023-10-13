@@ -671,20 +671,20 @@ class GitHubOptions {
     get changes() {
         const changes = {};
         if (this.valueFile && this.propertyPath) {
-            // let value: string | number | boolean = this.value
-            const tmp = this.valueFile.split('\n');
-            core.debug(`tmp::${tmp.toString()}`);
-            core.debug(`tmp::${tmp[0]}`);
-            core.debug(`valueFile::${this.valueFile}`);
-            core.debug(`valueFile::${this.valueFile.toString()}`);
-            // try {
-            //   value = convertValue(value)
-            // } catch {
-            //   core.warning(`exception while trying to convert value '${this.value}'`)
-            // }
-            // changes[this.valueFile] = {
-            //   [this.propertyPath]: value
-            // }
+            let value = this.value;
+            const valueFiles = this.valueFile.split('\n');
+            core.debug(`valueFiles::${valueFiles.toString()}`);
+            try {
+                value = (0, helper_1.convertValue)(value);
+            }
+            catch (_a) {
+                core.warning(`exception while trying to convert value '${this.value}'`);
+            }
+            for (const valueFile of valueFiles) {
+                changes[valueFile] = {
+                    [this.propertyPath]: value
+                };
+            }
         }
         // changes = parseChanges(changes, this.valueFile, core.getInput('changes'))
         // if (Object.keys(changes).length === 0) {

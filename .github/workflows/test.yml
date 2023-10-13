@@ -22,7 +22,7 @@ jobs:
             yaml/test.yaml
             yaml/test.yaml2
           propertyPath: 'spec.rules[0].host'
-          value: gps8
+          value: gps9
           commitChange: false
       - name: Commit git
         uses: stefanzweifel/git-auto-commit-action@v4
