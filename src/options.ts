@@ -150,24 +150,23 @@ export class GitHubOptions implements Options {
   get changes(): Changes {
     const changes: Changes = {}
     if (this.valueFile && this.propertyPath) {
-      // let value: string | number | boolean = this.value
+      let value: string | number | boolean = this.value
 
-      const tmp = this.valueFile.split('\n')
+      const valueFiles = this.valueFile.split('\n')
 
-      core.debug(`tmp::${tmp.toString()}`)
-      core.debug(`tmp::${tmp[0]}`)
-      core.debug(`valueFile::${this.valueFile}`)
-      core.debug(`valueFile::${this.valueFile.toString()}`)
+      core.debug(`valueFiles::${valueFiles.toString()}`)
 
-      // try {
-      //   value = convertValue(value)
-      // } catch {
-      //   core.warning(`exception while trying to convert value '${this.value}'`)
-      // }
+      try {
+        value = convertValue(value)
+      } catch {
+        core.warning(`exception while trying to convert value '${this.value}'`)
+      }
 
-      // changes[this.valueFile] = {
-      //   [this.propertyPath]: value
-      // }
+      for (const valueFile of valueFiles) {
+        changes[valueFile] = {
+          [this.propertyPath]: value
+        }
+      }
     }
 
     // changes = parseChanges(changes, this.valueFile, core.getInput('changes'))

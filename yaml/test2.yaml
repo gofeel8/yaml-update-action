@@ -1,0 +1,7 @@
+spec:
+  rules:
+    - host: gps1
+  tls:
+    - hosts:
+        - 6
+      secretName: 7
