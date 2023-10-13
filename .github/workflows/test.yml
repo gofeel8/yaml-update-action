@@ -18,7 +18,7 @@ jobs:
         uses: gofeel8/yaml-update-action@test
         with:
           branch: test
-          changes: "{'yaml/test.yaml': {'spec.rules[0].host': 'gps101'},'yaml/test2.yaml': {'spec.rules[0].host': 'gps102'}}"
+          changes: '{"yaml/test.yaml": {"spec.rules[0].host": "gps101"},"yaml/test2.yaml": {"spec.rules[0].host": "gps102"}}'
           commitChange: false
       - name: Commit git
         uses: stefanzweifel/git-auto-commit-action@v4
