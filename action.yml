@@ -5,6 +5,8 @@ inputs:
   valueFile:
     required: false
     description: 'YAML file which should be updated'
+    type: string
+    is-array: true
   propertyPath:
     required: false
     description: 'Property Path - valid jsonPath expression'
