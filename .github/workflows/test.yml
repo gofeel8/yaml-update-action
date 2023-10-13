@@ -19,8 +19,8 @@ jobs:
         with:
           branch: test
           valueFile: |
-            'yaml/test.yaml'
-            'yaml/test.yaml2'
+            yaml/test.yaml
+            yaml/test.yaml2
           propertyPath: 'spec.rules[0].host'
           value: gps8
           commitChange: false
