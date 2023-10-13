@@ -19,7 +19,7 @@ jobs:
             yaml/test.yaml
             yaml/test2.yaml
           propertyPath: 'spec.rules[0].host'
-          value: gps83
+          value: gps1
           commitChange: false
 
       - name: Commit git
