@@ -1,6 +1,6 @@
 spec:
   rules:
-    - host: gps10
+    - host: gps101
   tls:
     - hosts:
         - 6
